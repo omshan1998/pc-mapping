@@ -4,15 +4,15 @@
 ##########################
 
 ##load the necessary libraries 
-library(shiny)
-library(leaflet)
-library(RColorBrewer)
-library(rgdal)
-library(raster)
-library(ggmap)
-library(RColorBrewer)
-library(stringr)
-Sys.setlocale('LC_ALL','C');
+#library(shiny)
+#library(leaflet)
+#library(RColorBrewer)
+#library(rgdal)
+#library(raster)
+#library(ggmap)
+#library(RColorBrewer)
+#library(stringr)
+#Sys.setlocale('LC_ALL','C');
 
 #These are placeholders for the function to see if it works when fed the input.
 #This function filters the raw data in the Articles .csv file for the reactive inputs in the Shiny countries file.
@@ -36,21 +36,21 @@ Sys.setlocale('LC_ALL','C');
 #code when the code is actually running. Thus, it should 
 #not be necessary to have these variables when the function
 #actually runs.
-articles <- read.csv('./data/Data Scraping for Journal Articles Final 041916.csv')
-participatory <- read.csv('./data/ParticipatoryData.csv')
-countries <- readOGR('./world-shapefile', layer = 'world3')
+#articles <- read.csv('./data/Data Scraping for Journal Articles Final 041916.csv')
+#participatory <- read.csv('./data/ParticipatoryData.csv')
+#countries <- readOGR('./world-shapefile', layer = 'world3')
 #These lines merge the participatory and countries dataset.
-countries@data$polyorder <- 1 : dim(countries@data)[1]
-tmp <- merge(countries@data, participatory, by = "ISO3", sort = TRUE, all.x = TRUE)
-tmp <- tmp[ order(tmp$polyorder), ]
-countries@data <- tmp
-participatory <- read.csv('./data/ParticipatoryData.csv')
+#countries@data$polyorder <- 1 : dim(countries@data)[1]
+#tmp <- merge(countries@data, participatory, by = "ISO3", sort = TRUE, all.x = TRUE)
+#tmp <- tmp[ order(tmp$polyorder), ]
+#countries@data <- tmp
+#participatory <- read.csv('./data/ParticipatoryData.csv')
 
 #Make sure to run the entire file so the adequate variables are available, before running the function at the bottom.
 
 #here the function starts,
 dataFilter <- function(articlelist, countries, crossFilter, YearLow, YearHigh, CiteLow, CiteHigh, GSRankLow, GSRankHigh, Authors, University, Publisher,  KeywordList) {
-  
+  print("It's data filter")
   #This version of DataFilter is used for use with R+Leaflet interactive mapping app.
   
   ###For the entire code, all it does it take in the article list, filter it in the needed manner, and return the required country list based upon the inputs given.
@@ -104,12 +104,12 @@ dataFilter <- function(articlelist, countries, crossFilter, YearLow, YearHigh, C
   #These variables set the reactive country lists where the data is input. Participatory 
   #is the full list, made by a .csv file, and the new participatory2 is the reactive dataset, which 
   #changes based upon the filters chosen.
-  participatory <- countries@data
-  participatory2 <- countries@data
-  participatory2$WORK <- 0
-  participatory2$FIRSTPUB <- 0
-  participatory2$ALLPUB <- 0
-  participatory2$RESTPUB <- 0
+  #participatory <- countries@data
+  #participatory2 <- countries@data
+  #participatory2$WORK <- 0
+  #participatory2$FIRSTPUB <- 0
+  #participatory2$ALLPUB <- 0
+  #participatory2$RESTPUB <- 0
   
   #Incrementing variables for each of the loops.
   j <- 1

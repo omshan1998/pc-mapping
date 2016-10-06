@@ -16,35 +16,35 @@ shinyUI(
                                                     selectizeInput('HideCountry', 'Hide these countries:',
                                                                    choices= countryList, multiple=TRUE),
                                                     selectizeInput('countryFilter', 'Show only these countries:',
-                                                                   choices = c(countryList), multiple=TRUE),
-                                                    selectizeInput('crossFilter', 'Show where this country works:',
-                                                                    choices = countryList2, multiple=TRUE),
-                                                    sliderInput('citations', 'Filter by Citations', min = 0, max = 100, value = 1, step = NULL, round = FALSE,
-                                                               format = NULL, locale = NULL, ticks = TRUE, animate = FALSE,
-                                                               width = NULL, sep = ",", pre = NULL, post = NULL, timeFormat = NULL,
-                                                               timezone = NULL, dragRange = TRUE),
-                                                    sliderInput('Year', 'Filter by Latest Year', min = 1990, max = 2015, value = 1, step = 1, round = FALSE,
+                                                                   choices = countryList, multiple=TRUE),
+                                                    selectizeInput('crossFilter', 'Show where this author works:',
+                                                                   choices = countryList, multiple=TRUE),
+                                                    sliderInput('citations', 'Filter by Citations', min = 0, max = 100, value = c(0,100), step = NULL, round = FALSE,
                                                                 format = NULL, locale = NULL, ticks = TRUE, animate = FALSE,
                                                                 width = NULL, sep = ",", pre = NULL, post = NULL, timeFormat = NULL,
                                                                 timezone = NULL, dragRange = TRUE),
-                                                    sliderInput('GSRank', 'FIlter by GSRank', min = 0, max=100, value=1, step = 1, round = FALSE,
+                                                    sliderInput('Year', 'Filter by Latest Year', min = 1990, max = 2015, value = c(1990,2015), step = 1, round = FALSE,
+                                                                format = NULL, locale = NULL, ticks = TRUE, animate = FALSE,
+                                                                width = NULL, sep = ",", pre = NULL, post = NULL, timeFormat = NULL,
+                                                                timezone = NULL, dragRange = TRUE),
+                                                    sliderInput('GSRank', 'FIlter by GSRank', min = 0, max=1000, value= c(0,1000), step = 1, round = FALSE,
                                                                 format = NULL, locale = NULL, ticks = TRUE, animate = FALSE,
                                                                 width = NULL, sep = ",", pre = NULL, post = NULL, timeFormat = NULL,
                                                                 timezone = NULL, dragRange = TRUE),
                                                     selectizeInput('Authors', 'Filter by Authors:',
-                                                                    choices= AuthorList, multiple=TRUE),
+                                                                   choices= AuthorList, multiple=TRUE),
                                                     selectizeInput('University', "Filter by 1st Author's University:",
                                                                    choices= UniversityList, multiple=TRUE),
                                                     selectizeInput('Publisher', 'Filter by Publisher:', 
                                                                    choices= UniversityList, multiple=TRUE),
-                                                    selectizeInput('KeywordList', 'Choose Keywords', 
-                                                              choices = c("Poverty", "Developing Countries", "low-resource settings",
-                                                                          "low-income", "developing world", "third world", 
-                                                                          "resource-limited settings", "resource-limited", 
-                                                                          "Global Inequality", "international development"), multiple=TRUE)
+                                                    selectizeInput('d', 'Choose Keywords', 
+                                                                   choices = c("Poverty", "Developing Countries", "low-resource settings",
+                                                                               "low-income", "developing world", "third world", 
+                                                                               "resource-limited settings", "resource-limited", 
+                                                                               "Global Inequality", "international development"), multiple=TRUE)
                                           )
                             )
-                            )
+                        )
                ),
                tabPanel("About",
                         icon = icon("question"),
@@ -59,7 +59,7 @@ shinyUI(
                           the number of papers, per country, where the dataset engages in research.
                           the tool gives researchers the ability to filter by countries where countries decide to work. (e.g. is United States is chosen, one can see where United States-affiliated authors has engaged in research), and conversely, the tool gives the ability to filter by countries that engage in work in a certain country (e.g. if the United States is chosen, one can see authors from separate countries engage in research in the United States).
                           Additionally, the tool can be filtered by critical metrics analyzed from each paper, including GSRank, number of citations, available authors in the field, publications, universities, and search keywords which found the papers.")
-                        )
+               )
     )
   )
 )
