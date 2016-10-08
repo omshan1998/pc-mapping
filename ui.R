@@ -8,29 +8,22 @@ shinyUI(
                                        bottom: 0; overflow: hidden; padding: 0}"),
                             leafletOutput("map", width="100%", height="100%"),
                             
-                            absolutePanel(top = 30, right = 30, draggable=TRUE, 
-                                          
+                            absolutePanel(top = 0, right = 30, draggable=TRUE, 
+                                          checkboxInput('showPanel1', 'Show panel', FALSE),
+                                          conditionalPanel(condition = 'input.showPanel1',
                                           wellPanel(style = "background-color: #ffffff; width: 350px",
                                                     selectizeInput('MapFilter', 'Display a certain chloropleth:',
-                                                                   choices= MapTypeList, multiple=FALSE, selected="WORK"),
+                                                                   choices= MapTypeList, multiple=FALSE, selected="ALLPUB"),
+                                                    selectizeInput('FilterType', 'Show where this country works:',
+                                                                   choices = MapTypeList, multiple=FALSE),
                                                     selectizeInput('HideCountry', 'Hide these countries:',
                                                                    choices= countryList, multiple=TRUE),
                                                     selectizeInput('countryFilter', 'Show only these countries:',
                                                                    choices = countryList, multiple=TRUE),
-                                                    selectizeInput('crossFilter', 'Show where this author works:',
-                                                                   choices = countryList, multiple=TRUE),
-                                                    sliderInput('citations', 'Filter by Citations', min = 0, max = 100, value = c(0,100), step = NULL, round = FALSE,
-                                                                format = NULL, locale = NULL, ticks = TRUE, animate = FALSE,
-                                                                width = NULL, sep = ",", pre = NULL, post = NULL, timeFormat = NULL,
-                                                                timezone = NULL, dragRange = TRUE),
-                                                    sliderInput('Year', 'Filter by Latest Year', min = 1990, max = 2015, value = c(1990,2015), step = 1, round = FALSE,
-                                                                format = NULL, locale = NULL, ticks = TRUE, animate = FALSE,
-                                                                width = NULL, sep = ",", pre = NULL, post = NULL, timeFormat = NULL,
-                                                                timezone = NULL, dragRange = TRUE),
-                                                    sliderInput('GSRank', 'FIlter by GSRank', min = 0, max=1000, value= c(0,1000), step = 1, round = FALSE,
-                                                                format = NULL, locale = NULL, ticks = TRUE, animate = FALSE,
-                                                                width = NULL, sep = ",", pre = NULL, post = NULL, timeFormat = NULL,
-                                                                timezone = NULL, dragRange = TRUE),
+                                                    
+                                                    sliderInput('citations', 'Filter by Citations', min = 0, max = 100, value = c(0,100)),
+                                                    sliderInput('Year', 'Filter by Latest Year', min = 1990, max = 2015, value = c(1990,2015), step = 1),
+                                                    sliderInput('GSRank', 'FIlter by GSRank', min = 0, max=1000, value= c(0,1000), step = 1),
                                                     selectizeInput('Authors', 'Filter by Authors:',
                                                                    choices= AuthorList, multiple=TRUE),
                                                     selectizeInput('University', "Filter by 1st Author's University:",
@@ -42,6 +35,7 @@ shinyUI(
                                                                                "low-income", "developing world", "third world", 
                                                                                "resource-limited settings", "resource-limited", 
                                                                                "Global Inequality", "international development"), multiple=TRUE)
+                                          )
                                           )
                             )
                         )

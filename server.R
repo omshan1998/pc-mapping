@@ -5,7 +5,7 @@ function(input, output, session) {
   filteredData <- reactive({
     #newFilter <- function(mapFilter,hideCountry,countryFilter,crossFilter,citation,year,GSRank,Authors,University,Publisher,KeywordList){
       
-    data <- newFilter(input$MapFilter,input$HideCountry,input$countryFilter,input$crossFilter,input$citations,input$Year,input$GSRank,input$Authors,input$University,input$Publisher,input$KeywordList)
+    data <- newFilter(input$MapFilter,input$HideCountry,input$countryFilter,input$FilterType,input$citations,input$Year,input$GSRank,input$Authors,input$University,input$Publisher,input$KeywordList)
   })
 
   output$map <- renderLeaflet({
@@ -34,7 +34,7 @@ function(input, output, session) {
   observe({
     pal <- colorpal() #set the variable pal equal to the reactive variable colorpal.
     #Where the fourth option breaks!
-    colorBy <- input$MapFilter
+    colorBy <- "Count"
     leafletProxy("map", data = filteredData()) %>%
       clearShapes() %>%
       clearControls() %>%
