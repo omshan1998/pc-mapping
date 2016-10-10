@@ -14,7 +14,7 @@ function(input, output, session) {
     # entire map is being torn down and recreated).
     leaflet(filteredData()) %>%
       addProviderTiles("CartoDB.Positron") %>%
-      setView(0, 0, zoom = 3)
+      setView(50, 0, zoom = 2)
   })
   
   #HOW DOES ALL OF THIS WORK??   
@@ -38,10 +38,10 @@ function(input, output, session) {
     leafletProxy("map", data = filteredData()) %>%
       clearShapes() %>%
       clearControls() %>%
-      addPolygons(stroke=NULL, smoothFactor=0.5, 
+      addPolygons(stroke=FALSE, smoothFactor=0.2, 
                   color = ~pal(filteredData()@data[,colorBy]),
-                  opacity = 0.9,
+                  opacity = 1,
                   popup = ~paste("<strong>",colorBy,":</strong>",filteredData()@data[,colorBy], "<strong>Country:</strong>",NAME)) %>% 
-      addLegend(title=colorBy, pal=colorpal(), values=filteredData()@data[,colorBy], position="bottomright")
+      addLegend(title=colorBy, pal=colorpal(), values=filteredData()@data[,colorBy], position="bottomleft")
   })
 }
