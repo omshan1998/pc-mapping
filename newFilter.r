@@ -11,12 +11,6 @@ newFilter <- function(mapFilter,hideCountry,countryFilter,crossFilterType,hideCr
   hideCountryList <- isoList[hideCrossCountry] %>% as.character()
   countryList <- isoList[countryCrossFilter] %>% as.character()
 
-  
-
-  
-  
-  
-
   filteredArticles <- articles
   filteredArticles <- subset(filteredArticles, (Cites %in% c(citation[1]:citation[2])))
   filteredArticles <- subset(filteredArticles, (Year %in% c(year[1]:year[2])))
