@@ -2,11 +2,16 @@ function(input, output, session) {
 
   #Sets the necessary filters read from the UI
   
+  filteredArticles <- reactive({
+    print("filtering")
+    newFilter(input$MapFilter,input$hideCountry,input$countryFilter,input$FilterType,input$HideCrossCountry,input$countryCrossFilter,input$citations,input$Year,input$GSRank,input$Authors,input$University,input$Publisher,input$KeywordList) %>% data.frame() 
+    })
+  
   filteredData <- reactive({
     #newFilter <- function(mapFilter,hideCountry,countryFilter,crossFilterType,hideCrossCountry,countryCrossFilter,citation,year,gsRank,authors,university,publisher,keywordList){
       
-    data <- newFilter(input$MapFilter,input$hideCountry,input$countryFilter,input$FilterType,input$HideCrossCountry,input$countryCrossFilter,input$citations,input$Year,input$GSRank,input$Authors,input$University,input$Publisher,input$KeywordList)
-  })
+    data <- getStat(filteredArticles(), input$MapFilter,input$hideCountry,input$countryFilter)
+    })
 
   output$map <- renderLeaflet({
     # Use leaflet() here, and only include aspects of the map that
@@ -16,6 +21,9 @@ function(input, output, session) {
       addProviderTiles("CartoDB.Positron") %>%
       setView(50, 0, zoom = 2)
   })
+  output$table <- DT::renderDataTable(DT::datatable({
+    filteredArticles()
+  }))
   
   #HOW DOES ALL OF THIS WORK??   
   #create reactive colorVariable, which updates the color palette based on the type of map chosen.

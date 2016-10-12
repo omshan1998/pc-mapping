@@ -59,6 +59,10 @@ shinyUI(
           )
         )
       ),
+     tabPanel("CSV", icon = icon("table"),
+              DT::dataTableOutput("table")
+              
+              ),
      tabPanel("About",
       icon = icon("question"),
 

@@ -13,9 +13,7 @@ newFilter <- function(mapFilter,hideCountry,countryFilter,crossFilterType,hideCr
 
   
 
-  #This is a middle file between the source and the data source for the map 
-  midparticipatory <- countries@data
-  midparticipatory$Count <- 0
+  
   
   
 
@@ -62,17 +60,19 @@ newFilter <- function(mapFilter,hideCountry,countryFilter,crossFilterType,hideCr
       filteredArticles <- subset(filteredArticles,(grepl(countryPattern, paste(Country.of.Publication..1st.Author.,Country.of.Publication..Rest.of.authors.))))
     }
   }
-  print(c("Filtered article number", dim(filteredArticles)[1]))
-  
-  
   #filteredArticles <- subset(filteredArticles, (Place.of.Publish..1st.author. %in% university))
   #filteredArticles <- subset(filteredArticles, (Publisher %in% publisher))
   #filteredArticles <- subset(filteredArticles, (Second.Keyword %in% keywordList))
+  print(c("Filtered article number", dim(filteredArticles)[1]))
+  #write.csv(filteredArticles,"test.csv")
+  return (filteredArticles)
+}
+
+getStat <- function(filteredArticles, mapFilter, hideCountry, countryFilter){
   
-  
-  #if (crossFilterType == "WORK") filteredArticles <- subset(filteredArticles, (grepl()))
-  
-  #print(filteredArticles$Authors)
+  #This is a middle file between the source and the data source for the map 
+  midparticipatory <- countries@data
+  midparticipatory$Count <- 0
 
   #mapFilter determines what data to show? "WORK", "FIRSTPUB", "RESTPUB", "ALLPUB"
   if (mapFilter == "WORK") crossarray<-sapply(filteredArticles$Place.of.Work, as.character)
@@ -92,9 +92,9 @@ newFilter <- function(mapFilter,hideCountry,countryFilter,crossFilterType,hideCr
       midparticipatory$Count[i] <- 0
     }
 
-    else if (!is.null(countryCrossFilter)){
+    else if (!is.null(countryFilter)){
       if (midparticipatory$NAME[i] %in% countryFilter){
-        print(c("mid name", midparticipatory$NAME[i], "in filter:", countryCrossFilter))
+        #print(c("mid name", midparticipatory$NAME[i], "in filter:", countryFilter))
         midparticipatory$Count[i] <- str_count(crossarray,pattern=countryISO2name)
       }
     }
@@ -104,7 +104,7 @@ newFilter <- function(mapFilter,hideCountry,countryFilter,crossFilterType,hideCr
     #midparticipatory$Count[i] <- str_count(crossarray,pattern=countryISO2name)
   }
   
-  write.csv(midparticipatory, file = "test.csv")
+  #write.csv(midparticipatory, file = "test.csv")
   
   countries@data <- midparticipatory
 

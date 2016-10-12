@@ -9,6 +9,7 @@ install.packages("RColorBrewer")
 install.packages("rgdal")
 install.packages("raster")
 install.packages("ggmap")
+install.packages("DT")
 
 #load data
 source("loadData.R")
