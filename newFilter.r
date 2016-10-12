@@ -1,4 +1,4 @@
-newFilter <- function(mapFilter,hideCountry,countryFilter,filterType,citation,year,gsRank,authors,university,publisher,keywordList){
+newFilter <- function(mapFilter,hideCountry,countryFilter,crossFilterType,hideCrossCountry,countryCrossFilter,citation,year,gsRank,authors,university,publisher,keywordList){
   debug = FALSE
   if(debug){
     if(!is.null(authors)){
@@ -8,8 +8,8 @@ newFilter <- function(mapFilter,hideCountry,countryFilter,filterType,citation,ye
     return(countries)
   }
   
-  hideCountryList <- isoList[hideCountry] %>% as.character()
-  countryList <- isoList[countryFilter] %>% as.character()
+  hideCountryList <- isoList[hideCrossCountry] %>% as.character()
+  countryList <- isoList[countryCrossFilter] %>% as.character()
 
   
 
@@ -39,23 +39,23 @@ newFilter <- function(mapFilter,hideCountry,countryFilter,filterType,citation,ye
   #print(c("before Type filter, there are", dim(filteredArticles)))
   
   # Type filter
-  if (!is.null(hideCountry) || !is.null(countryFilter)){
+  if (!is.null(hideCrossCountry) || !is.null(countryCrossFilter)){
     hideCountryPattern = paste(hideCountryList,collapse = "|")
     countryPattern = paste(countryList,collapse = "|")
-    if (filterType == "WORK"){
-      if (!is.null(hideCountry)) filteredArticles <- subset(filteredArticles,!grepl(hideCountryPattern, Place.of.Work))
+    if (crossFilterType == "WORK"){
+      if (!is.null(hideCrossCountry)) filteredArticles <- subset(filteredArticles,!grepl(hideCountryPattern, Place.of.Work))
       filteredArticles <- subset(filteredArticles,grepl(countryPattern, Place.of.Work))
     }
-    else if (filterType == "FIRSTPUB"){
-      if (!is.null(hideCountry)) filteredArticles <- subset(filteredArticles,!grepl(hideCountryPattern, Country.of.Publication..1st.Author.))
+    else if (crossFilterType == "FIRSTPUB"){
+      if (!is.null(hideCrossCountry)) filteredArticles <- subset(filteredArticles,!grepl(hideCountryPattern, Country.of.Publication..1st.Author.))
       filteredArticles <- subset(filteredArticles,grepl(countryPattern, Country.of.Publication..1st.Author.))
     }
-    else if (filterType == "RESTPUB"){
-      if (!is.null(hideCountry)) filteredArticles <- subset(filteredArticles,!grepl(hideCountryPattern, Country.of.Publication..Rest.of.authors.))
+    else if (crossFilterType == "RESTPUB"){
+      if (!is.null(hideCrossCountry)) filteredArticles <- subset(filteredArticles,!grepl(hideCountryPattern, Country.of.Publication..Rest.of.authors.))
       filteredArticles <- subset(filteredArticles,grepl(countryPattern, Country.of.Publication..Rest.of.authors.))
     }
-    else if (filterType == "ALLPUB"){
-      if (!is.null(hideCountry)){
+    else if (crossFilterType == "ALLPUB"){
+      if (!is.null(hideCrossCountry)){
         filteredArticles <- subset(filteredArticles,!grepl(hideCountryPattern, Country.of.Publication..1st.Author.))
         filteredArticles <- subset(filteredArticles,!grepl(hideCountryPattern, Country.of.Publication..Rest.of.authors.))
       }
@@ -70,7 +70,7 @@ newFilter <- function(mapFilter,hideCountry,countryFilter,filterType,citation,ye
   #filteredArticles <- subset(filteredArticles, (Second.Keyword %in% keywordList))
   
   
-  #if (filterType == "WORK") filteredArticles <- subset(filteredArticles, (grepl()))
+  #if (crossFilterType == "WORK") filteredArticles <- subset(filteredArticles, (grepl()))
   
   #print(filteredArticles$Authors)
 
@@ -88,20 +88,20 @@ newFilter <- function(mapFilter,hideCountry,countryFilter,filterType,citation,ye
   # traverse the middle participatory to count number of articles filtered
   for (i in 1:nrow(midparticipatory)){
     countryISO2name <- midparticipatory[i,"ISO2"] %>% as.character()
-    # if (midparticipatory$NAME[i] %in% hideCountry){
-    #   midparticipatory$Count[i] <- 0
-    # }
-    # 
-    # else if (!is.null(countryFilter)){
-    #   if (midparticipatory$NAME[i] %in% countryFilter){
-    #     print(c("mid name", midparticipatory$NAME[i], "in filter:", countryFilter))
-    #     midparticipatory$Count[i] <- str_count(crossarray,pattern=countryISO2name)
-    #   }
-    # }
-    # else {
-    #   midparticipatory$Count[i] <- str_count(crossarray,pattern=countryISO2name)
-    # }
-    midparticipatory$Count[i] <- str_count(crossarray,pattern=countryISO2name)
+    if (midparticipatory$NAME[i] %in% hideCountry){
+      midparticipatory$Count[i] <- 0
+    }
+
+    else if (!is.null(countryCrossFilter)){
+      if (midparticipatory$NAME[i] %in% countryFilter){
+        print(c("mid name", midparticipatory$NAME[i], "in filter:", countryCrossFilter))
+        midparticipatory$Count[i] <- str_count(crossarray,pattern=countryISO2name)
+      }
+    }
+    else {
+      midparticipatory$Count[i] <- str_count(crossarray,pattern=countryISO2name)
+    }
+    #midparticipatory$Count[i] <- str_count(crossarray,pattern=countryISO2name)
   }
   
   write.csv(midparticipatory, file = "test.csv")
