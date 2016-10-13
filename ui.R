@@ -36,7 +36,7 @@ shinyUI(
               wellPanel(style = "background-color: #ffffff; overflow-y:auto",
                 checkboxInput('morefilters', 'More filters', TRUE),
                 conditionalPanel(condition = "input.morefilters",
-                  sliderInput('citations', 'Filter by Citations', min = min(articles$Cites), max = max(articles$Cites), value = c(min(articles$Cites),max(articles$Cites))),
+                  sliderInput('citations', 'Filter by Citations', min = min(articles$Cites), max = max(articles$Cites), value = c(min(articles$Cites),max(articles$Cites)), step = 1),
                   sliderInput('Year', 'Filter by Latest Year', min = min(articles$Year), max = max(articles$Year), value = c(min(articles$Year),max(articles$Year)), step = 1),
                   sliderInput('GSRank', 'FIlter by GSRank', min = min(articles$GSRank), max=max(articles$GSRank), value= c(min(articles$GSRank),max(articles$GSRank)), step = 1),
                   selectizeInput('Authors', 'Filter by Authors:',

@@ -3,7 +3,7 @@ function(input, output, session) {
   #Sets the necessary filters read from the UI
   
   filteredArticles <- reactive({
-    print("filtering")
+    # newFilter <- function(mapFilter,hideCountry,countryFilter,crossFilterType,hideCrossCountry,countryCrossFilter,citation,year,gsRank,authors,university,publisher,keywordList){
     newFilter(input$MapFilter,input$hideCountry,input$countryFilter,input$FilterType,input$HideCrossCountry,input$countryCrossFilter,input$citations,input$Year,input$GSRank,input$Authors,input$University,input$Publisher,input$KeywordList) %>% data.frame() 
     })
   
