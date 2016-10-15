@@ -15,9 +15,9 @@ shinyUI(
               conditionalPanel(condition = 'input.showPanel1',
               selectizeInput('MapFilter', 'Display a certain chloropleth:',
                choices= MapTypeList, multiple=FALSE, selected="WORK"),
-              selectizeInput("hideCountry","Hide these countries", 
-                             choices = WorldCountryList, multiple = TRUE),
               selectizeInput("countryFilter","Show only these countries",
+                             choices = WorldCountryList, multiple = TRUE),
+              selectizeInput("hideCountry","Hide these countries", 
                              choices = WorldCountryList, multiple = TRUE),
               #Cross filter
               wellPanel(style = "background-color: #ffffff; overflow-y:auto",
@@ -25,10 +25,11 @@ shinyUI(
                 conditionalPanel(condition = 'input.displaycrossfilter',
                   selectizeInput('FilterType', 'Cross Filter Type:',
                    choices = c("",MapTypeList), multiple=FALSE,selected="ALLPUB"),
-                  selectizeInput('HideCrossCountry', 'Hide these cross countries:',
-                   choices= WorldCountryList, multiple=TRUE),
                   selectizeInput('countryCrossFilter', 'Show only these cross countries:',
-                   choices = WorldCountryList, multiple=TRUE)
+                                 choices = WorldCountryList, multiple=TRUE),
+                  selectizeInput('HideCrossCountry', 'Hide these cross countries:',
+                   choices= WorldCountryList, multiple=TRUE)
+                  
                 )
               ),
               
