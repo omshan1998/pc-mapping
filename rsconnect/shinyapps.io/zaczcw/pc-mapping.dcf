@@ -2,8 +2,8 @@ name: pc-mapping
 account: zaczcw
 server: shinyapps.io
 appId: 130927
-bundleId: 582883
+bundleId: 587994
 url: https://zaczcw.shinyapps.io/pc-mapping/
-when: 1476149082.51187
+when: 1476667017.83957
 asMultiple: FALSE
 asStatic: FALSE

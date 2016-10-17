@@ -8,7 +8,7 @@ library(ggmap)
 library(ggplot2)
 library(RColorBrewer)
 library(stringr)
-Sys.setlocale('LC_ALL','C')
+Sys.setlocale('LC_ALL', locale = "English_United States.1252")
 source("./newFilter.R")
 
 #############################
