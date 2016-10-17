@@ -13,7 +13,7 @@ source("./newFilter.R")
 
 #############################
 countries <- readOGR('./world-shapefile', layer = 'world3')
-articles <- read.csv('./data/Data Scraping for Journal Articles Final 041916.csv')
+articles <- read.csv('./data/Data Scraping for Journal Articles Final 041916.csv',encoding="UTF-8")
 articles$keywords <- paste(articles$Second.Keyword,articles$X,articles$X.1,articles$X.2,articles$X.3,articles$X.4,articles$X.5,articles$X.6,sep=",")
 
 #participatory <- read.csv('./data/ParticipatoryData.csv')
